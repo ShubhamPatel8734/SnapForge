@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Img</title>
+</head>
+<body>
+    <form action="/show/" method="post">
+        {% csrf_token %}
+            <input type="file" name="img">
+            <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
