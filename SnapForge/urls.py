@@ -21,5 +21,8 @@ from User import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('login/', views.login),
+    path('send_otp/', views.sendotp),
+    path('validate_otp/', views.validateotp),
     # path('show/', views.show)
 ]
