@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'SnapForge.wsgi.application'
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.pymongo',
-#         'NAME': '',
-#         'USER': '',
-#         'PASSWORD': '',
-#         'HOST': '',
-#         'PORT': ''
+#         'ENGINE': 'djongo',
+#         'NAME': 'carease',
+#         # 'USER': '',
+#         # 'PASSWORD': '',
+#         # 'HOST': '',
+#         # 'PORT': ''
 #     }
 # }
 

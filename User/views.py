@@ -6,6 +6,8 @@ from django.shortcuts import render
 def index(request):
     return render(request, "input.html", {})
 
+
+
 # import matplotlib.pyplot as plt
 # import matplotlib.image as mpimg
 # def show(request):
