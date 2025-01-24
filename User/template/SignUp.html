@@ -5,15 +5,15 @@
     <title>Get Img</title>
 </head>
 <body>
-    <form action="/validate_otp/" method="post">
+    <form action="/Send_otp/" method="post">
         {% csrf_token %}
             <div align="center">
 
-                <input type="otp" name="otp" id="otp" placeholder="Enter OTP" required autofocus>
+                <input type="email" name="email" id="email" placeholder="Email" required autofocus>
 
                 <br>
 
-                <button type="submit">Sign in</button>
+                <button type="submit">Send OTP</button>
             </div>
             <br>
     </form>

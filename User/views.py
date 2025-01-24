@@ -1,22 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
 
 # Create your views here.
 
-
 def index(request):
+    return render(request, "index.html", {})
+
+
+def img_creation(request):
     return render(request, "input.html", {})
 
 
+def signup(request):
+    return render(request, "SignUp.html", {})
+
+
 def login(request):
-    return render(request, "Login.html", {})
+    return redirect("/")
 
 
 def sendotp(request):
-    return render(request, "Validate_OTP.html", {})
-
-
-def validateotp(request):
-    return render(request, "input.html")
+    return render(request, "Login.html", {})
 
 
 
