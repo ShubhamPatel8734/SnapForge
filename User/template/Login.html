@@ -5,11 +5,11 @@
     <title>Get Img</title>
 </head>
 <body>
-    <form action="/login/" method="post">
+    <form action="/Login/" method="post">
         {% csrf_token %}
             <div align="center">
 
-                <input type="otp" name="otp" id="otp" placeholder="Enter OTP" required autofocus>
+                <input type="text" name="otp" id="otp" placeholder="Enter OTP" maxlength="4" required autofocus>
 
                 <br>
 
