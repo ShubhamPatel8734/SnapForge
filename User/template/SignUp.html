@@ -5,17 +5,30 @@
     <title>Get Img</title>
 </head>
 <body>
-    <form action="/Send_otp/" method="post">
+    <form action="/SignUp/" method="post">
         {% csrf_token %}
             <div align="center">
 
-                <input type="email" name="email" id="email" placeholder="Email" required autofocus>
+                <label>Name:</label>
+                <input type="text" name="user_name" placeholder="Firstname Surname" required autofocus>
+                <br>
+                <br>
+                <label>Email:</label>
+                <input type="email" name="user_email" id="email" placeholder="example@gmail.com" required>
 
                 <br>
+                <br>
 
-                <button type="submit">Send OTP</button>
+                <button type="submit">SignUp</button>
             </div>
             <br>
+
+            {% if error %}
+            <div align="center" style="color:red;">
+                {{ error }}
+            </div>
+            {% endif %}
+
     </form>
 </body>
 </html>
