@@ -8,6 +8,16 @@
     <div>
         <a href="/SignUp/">Sign Up</a> &emsp;
         <a href="/Login/">Sign In</a>
+
+            <br>
+            <br>
+            <br>
+            <br>
+
+        {% if user_data %}
+            <label>{{ user_data.user_name }}</label>
+        {% endif %}
+
         <div align="center">
 
             <a href="/Img_creation/"><button>Let's Create a 3D Picture</button></a>
@@ -17,9 +27,33 @@
             <br>
             <br>
 
-            <img src="{{ file_url }}" height="150px" width="150px" style="border: blue 3px solid;">
-
         </div>
+
+        {% if image_data %}
+            {% for data in image_data %}
+
+                <br>
+                <div align="center" style="border: blue 1px solid;">
+<!--                    {% for img in data %}-->
+                        <img src="{{ data.right_img }}" height="120px" width="120px" style="border: blue 2px solid;"> &nbsp;
+<!--                        <img src="{{ data.right_img }}" height="120px" width="120px" style="border: blue 2px solid;"> &nbsp;-->
+<!--                        <img src="{{ img.front_img }}" height="120px" width="120px" style="border: blue 2px solid;"> &nbsp;-->
+<!--                        <img src="{{ img.back_img }}" height="120px" width="120px" style="border: blue 2px solid;"> &emsp;&emsp;-->
+                        <a href="{{ img.file_3D_img }}" download="Img-3D_Model.stl"><button>Download</button></a>
+<!--                    {% endfor %}-->
+                </div>
+                <br>
+
+            {% endfor %}
+        {% else %}
+            <p> No image uploaded. </p>
+        {% endif %}
+
+
+
+            <input type="file">
+
+
     </div>
 </body>
 </html>

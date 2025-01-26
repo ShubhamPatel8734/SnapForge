@@ -12,11 +12,31 @@ from django.core.files.storage import FileSystemStorage
 
 def index(request):
 
-    fs = FileSystemStorage()
-    file_url = fs.url('coder_boy.jpg')
-    print("file_url :-", file_url)
+    email = "pshubham8734@gmail.com"
 
-    return render(request, "Index.html", {"file_url": file_url})
+    user = user_collection.find_one({"user_email": email})
+    print("User :-", user)
+
+    images = images_collection.find({"user_email": email})
+
+    image_data = list(images)
+
+    for data in image_data:
+        for key in data:
+            last_img = key[len(key) - 4: len(key)]
+
+            if last_img == '_img':
+                data[key] = '/media/'+data[key]
+
+    print("Images :-", image_data)
+
+
+    # fs = FileSystemStorage()
+    # file_url = fs.url('coder_boy.jpg')
+    # print("file_url :-", file_url)
+    # print("Path :-", settings.MEDIA_ROOT)
+
+    return render(request, "Index.html", {"user_data": user, "image_data": image_data})
 
 
 def img_creation(request):
@@ -37,25 +57,35 @@ def img_creation(request):
         fs = FileSystemStorage(location=settings.MEDIA_ROOT)
 
         if Left and Right and Front and Back:
+
+            # Function call...
+            File_3D = request.FILES['3D_File']  # function return a 3D file.
+
+
             Left_path = fs.save(Left.name, Left)
             Right_path = fs.save(Right.name, Right)
             Front_path = fs.save(Front.name, Front)
             Back_path = fs.save(Back.name, Back)
+            File_3D_path = fs.save(File_3D.name, File_3D)
+
 
             Left_name = fs.get_valid_name(Left_path)
             Right_name = fs.get_valid_name(Right_path)
             Front_name = fs.get_valid_name(Front_path)
             Back_name = fs.get_valid_name(Back_path)
+            File_3D_name = fs.get_valid_name(File_3D_path)
 
             records = {
                 "left_img": Left_name,
                 "right_img": Right_name,
-                "Front_img": Front_name,
-                "Back_img": Back_name,
+                "front_img": Front_name,
+                "back_img": Back_name,
+                "file_3D_img": File_3D_name,
                 "user_email": "pshubham8734@gmail.com"
             }
             images_collection.insert_one(records)
-            print(f":::::::::::::::::::  Left_name : {Left_name} \n:::::::::::::::::::  Right_name : {Right_name} \n:::::::::::::::::::  Front_name : {Front_name} \n:::::::::::::::::::  Back_name : {Back_name}")
+            print(f":::::::::::::::::::  Left_name : {Left_name} \n:::::::::::::::::::  Right_name : {Right_name} \n:::::::::::::::::::  Front_name : {Front_name} \n:::::::::::::::::::  Back_name : {Back_name} \n:::::::::::::::::::  File_3D_img : {File_3D_name}")
+
             return redirect("/Index")
 
     return render(request, "Img_creation.html", {})
