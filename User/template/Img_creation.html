@@ -5,7 +5,7 @@
     <title>Get Img</title>
 </head>
 <body>
-    <form action="/Img_creation/" method="post">
+    <form action="/Img_creation/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
             <div align="center">
                 <img src="" id="left_img" height="150px" width="150px" style="border: blue 2px solid">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -16,10 +16,10 @@
                 <br>
 
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <input type="file" name="img" id="left" accept="image/*" onchange="previewImage(event, this.id)">&nbsp;&nbsp;&nbsp;
-                <input type="file" name="img" id="right" accept="image/*" onchange="previewImage(event, this.id)">&nbsp;&nbsp;&nbsp;
-                <input type="file" name="img" id="front" accept="image/*" onchange="previewImage(event, this.id)">&nbsp;&emsp13;&emsp13;
-                <input type="file" name="img" id="back" accept="image/*" onchange="previewImage(event, this.id)">
+                <input type="file" name="left" id="left" accept="image/*" onchange="previewImage(event, this.id)" required>&nbsp;&nbsp;&nbsp;
+                <input type="file" name="right" id="right" accept="image/*" onchange="previewImage(event, this.id)" required>&nbsp;&nbsp;&nbsp;
+                <input type="file" name="front" id="front" accept="image/*" onchange="previewImage(event, this.id)" required>&nbsp;&emsp13;&emsp13;
+                <input type="file" name="back" id="back" accept="image/*" onchange="previewImage(event, this.id)" required>
 
                 <br>
                 <br>
@@ -27,8 +27,16 @@
 
                 <button type="submit">Submit</button> <!-- Generate -->
             </div>
+
             <br>
             <br>
+
+            {% if error %}
+                <div align="center" style="color:red;">
+                    {{ error }}
+                </div>
+            {% endif %}
+
     </form>
 
     <script type="text/javascript">

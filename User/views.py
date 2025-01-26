@@ -1,19 +1,63 @@
 from django.shortcuts import render, redirect
+
+from SnapForge.settings import BASE_DIR
 from User.models import *
 from pymongo.errors import *
 
 from SnapForge import settings
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
 
 def index(request):
-    return render(request, "Index.html", {})
+
+    fs = FileSystemStorage()
+    file_url = fs.url('coder_boy.jpg')
+    print("file_url :-", file_url)
+
+    return render(request, "Index.html", {"file_url": file_url})
 
 
 def img_creation(request):
     if request.method == "POST":
-        pass
+
+        # If HTML_form contains  enctype="multipart/form-data" then:-
+        Left = request.FILES['left']
+        Right = request.FILES['right']
+        Front = request.FILES['front']
+        Back = request.FILES['back']
+
+        # If HTML_form   Not contains   enctype="multipart/form-data" then:-
+        # Left = request.FILES.get('left')
+        # Right = request.FILES.get('right')
+        # Front = request.FILES.get('front')
+        # Back = request.FILES.get('back')
+
+        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+
+        if Left and Right and Front and Back:
+            Left_path = fs.save(Left.name, Left)
+            Right_path = fs.save(Right.name, Right)
+            Front_path = fs.save(Front.name, Front)
+            Back_path = fs.save(Back.name, Back)
+
+            Left_name = fs.get_valid_name(Left_path)
+            Right_name = fs.get_valid_name(Right_path)
+            Front_name = fs.get_valid_name(Front_path)
+            Back_name = fs.get_valid_name(Back_path)
+
+            records = {
+                "left_img": Left_name,
+                "right_img": Right_name,
+                "Front_img": Front_name,
+                "Back_img": Back_name,
+                "user_email": "pshubham8734@gmail.com"
+            }
+            images_collection.insert_one(records)
+            print(f":::::::::::::::::::  Left_name : {Left_name} \n:::::::::::::::::::  Right_name : {Right_name} \n:::::::::::::::::::  Front_name : {Front_name} \n:::::::::::::::::::  Back_name : {Back_name}")
+            return redirect("/Index")
+
     return render(request, "Img_creation.html", {})
 
 
@@ -25,8 +69,7 @@ def signup(request):
 
         records = {
             "user_name": name,
-            "user_email": email,
-
+            "user_email": email
         }
         print("Form Data :", records)
 
