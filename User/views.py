@@ -17,7 +17,7 @@ def index(request):
     user = user_collection.find_one({"user_email": email})
     print("User :-", user)
 
-    images = images_collection.find({"user_email": email})
+    images = images_collection.find({"user_email": email}, {"_id": 0, "left_img": 1, "right_img": 1, "front_img": 1, "back_img": 1, "file_3D_img": 1})
 
     image_data = list(images)
 
