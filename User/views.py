@@ -167,7 +167,7 @@ def sendotp(request):
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email, ]
 
-        # send_mail(subject, message, email_from, recipient_list)
+        send_mail(subject, message, email_from, recipient_list)
         print("+=+=+=+=+=+=+=+=+=+  " + email + "  +=+=+=+  Email has been sent successfully...")
 
         print(f"*=*=*=*=*=*=*=*=*=*=*=*  OTP {otp} successfully added to the collection for email {email}")
