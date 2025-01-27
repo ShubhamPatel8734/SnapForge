@@ -39,6 +39,13 @@ def index(request):
     return render(request, "Index.html", {"user_data": user, "image_data": image_data})
 
 
+def r_name(Name):
+
+    re_name = Name.replace(" ", "_").replace("(", "").replace(")", "")
+
+    return re_name
+
+
 def img_creation(request):
     if request.method == "POST":
 
@@ -59,21 +66,22 @@ def img_creation(request):
         if Left and Right and Front and Back:
 
             # Function call...
-            File_3D = request.FILES['3D_File']  # function return a 3D file.
+            # File_3D = request.FILES['3D_File']  # function return a 3D file.
 
 
             Left_path = fs.save(Left.name, Left)
             Right_path = fs.save(Right.name, Right)
             Front_path = fs.save(Front.name, Front)
             Back_path = fs.save(Back.name, Back)
-            File_3D_path = fs.save(File_3D.name, File_3D)
+            # File_3D_path = fs.save(File_3D.name, File_3D)
 
-
-            Left_name = fs.get_valid_name(Left_path)
-            Right_name = fs.get_valid_name(Right_path)
-            Front_name = fs.get_valid_name(Front_path)
-            Back_name = fs.get_valid_name(Back_path)
-            File_3D_name = fs.get_valid_name(File_3D_path)
+            # space" " replaces with "_" & "(",")" replaces with "".
+            Left_name = r_name(fs.get_valid_name(Left_path))
+            Right_name = r_name(fs.get_valid_name(Right_path))
+            Front_name = r_name(fs.get_valid_name(Front_path))
+            Back_name = r_name(fs.get_valid_name(Back_path))
+            # File_3D_name = r_name(fs.get_valid_name(File_3D_path))
+            File_3D_name = "Weird_Bird_3D.stl"
 
             records = {
                 "left_img": Left_name,
