@@ -68,7 +68,7 @@ def img_creation(request):
             Back_path = fs.save(Back.name, Back)
             File_3D_path = fs.save(File_3D.name, File_3D)
 
-
+            # space" " replaces with "_" & "(",")" replaces with "".    # Pending work.
             Left_name = fs.get_valid_name(Left_path)
             Right_name = fs.get_valid_name(Right_path)
             Front_name = fs.get_valid_name(Front_path)
