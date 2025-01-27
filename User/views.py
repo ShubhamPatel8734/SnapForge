@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from SnapForge.settings import BASE_DIR
+# from SnapForge.settings import BASE_DIR
 from User.models import *
 from pymongo.errors import *
 
@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
+# global variable :-
 email = ""
 
 
@@ -50,7 +51,7 @@ def sendotp(request):
 
         user_email = request.POST['user_email']
 
-        print("*=*=*=*=*=*=* otp:- ",otp,"email:- ",user_email)
+        print("*=*=*=*=*=*=* otp:- ", otp, "email:- ", user_email)
 
         user = user_collection.update_one(
             {"user_email": user_email},  # Filter: Match the email
@@ -75,16 +76,14 @@ def sendotp(request):
 
         print(f"*=*=*=*=*=*=*=*=*=*=*=*  OTP {otp} successfully added to the collection for email {email}")
 
-    return render(request, "Login.html", {"visibility": 'block'})  # Here needs to change.
+    return render(request, "Login.html", {"visibility": 'block'})  # Here changes.
 
 
 def login(request):
     if request.method == 'POST':
 
-        # email = request.POST['user_email']
         otp = request.POST['otp']
 
-        # print("+-+-+-+-+-+ Email from Send OTP Form :-", email)
         user = user_collection.find_one({"user_email": email})
 
         # print("User details :- ", user)
@@ -95,7 +94,7 @@ def login(request):
                 return redirect("/Index")
             else:
                 print("+-+-+-+-+-+-+-+-+-+-+-+ :- OTP is incorrect.")
-                return render(request, "Login.html", {"visibility": 'block', "error": "Invalid OTP."})  # Here needs to change.
+                return render(request, "Login.html", {"visibility": 'block', "error": "Invalid OTP."})  # Here changes.
 
     return render(request, "Login.html", {})
 
@@ -117,7 +116,6 @@ def index(request):
                 data[key] = '/media/'+data[key]
 
     print("Images :-", image_data)
-
 
     # fs = FileSystemStorage()
     # file_url = fs.url('coder_boy.jpg')
